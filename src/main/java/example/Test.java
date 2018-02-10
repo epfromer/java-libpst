@@ -9,7 +9,8 @@ import com.pff.PSTMessage;
 
 public class Test {
     public static void main(final String[] args) {
-        new Test(args[0]);
+    	new Test("/home/ed/Desktop/2005-02.pst");
+        // new Test(args[0]);
     }
 
     public Test(final String filename) {
