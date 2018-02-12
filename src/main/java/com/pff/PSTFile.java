@@ -205,10 +205,7 @@ public class PSTFile {
         for (int i = 0; i < guidStrings.length; ++i) {
             final UUID uuid = UUID.fromString(guidStrings[i]);
             this.guidMap.put(uuid, i);
-            /*
-             * System.out.printf("guidMap[{%s}] = %d\n", uuid.toString(), i);
-             * /
-             **/
+            // System.out.printf("guidMap[{%s}] = %d\n", uuid.toString(), i);
         }
 
         // process the name to id map
@@ -573,6 +570,7 @@ public class PSTFile {
             }
         }
 
+        System.out.printf("%d", offset);
         return offset;
     }
 
