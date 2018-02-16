@@ -570,7 +570,7 @@ public class PSTFile {
             }
         }
 
-        System.out.printf("%d", offset);
+        // System.out.printf("%d", offset);
         return offset;
     }
 
@@ -630,6 +630,8 @@ public class PSTFile {
             }
             in.seek(btreeStartOffset);
             in.readCompletely(branchNodeItems);
+
+            System.out.printf("btreeStartOffset = %d\n", btreeStartOffset);
 
             long numberOfItems = 0;
             if (this.getPSTFileType() == PST_TYPE_2013_UNICODE) {
@@ -730,7 +732,8 @@ public class PSTFile {
                                 in.seek(btreeStartOffset + (x * 32));
                                 temp = new byte[32];
                                 in.readCompletely(temp);
-                                // System.out.println("item found!!!");
+                                
+                                System.out.println("item found!!!");
                                 // PSTObject.printHexFormatted(temp, true);
                                 return temp;
                             }
@@ -746,6 +749,8 @@ public class PSTFile {
 
                                 temp = new byte[24];
                                 in.readCompletely(temp);
+
+                                System.out.println("item found!!!");
                                 return temp;
                             }
                         }
