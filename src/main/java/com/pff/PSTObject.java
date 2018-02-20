@@ -647,7 +647,7 @@ public class PSTObject {
             offset |= tmpLongValue;
         }
 
-        System.out.printf("convertLittleEndianBytesToLong = %d\n", offset);
+        // System.out.printf("convertLittleEndianBytesToLong = %d\n", offset);
         
         return offset;
     }

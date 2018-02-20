@@ -174,7 +174,7 @@ public class PSTNodeInputStream extends InputStream {
             this.seek(0);
         } catch (final IOException err) {
             throw new PSTException("Unable to decompress reportedly compressed block", err);
-        }
+        }   
     }
 
     private void loadFromOffsetItem(final OffsetIndexItem offsetItem) throws IOException, PSTException {

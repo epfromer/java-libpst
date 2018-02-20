@@ -503,7 +503,7 @@ public class PSTFile {
         return output;
     }
 
-    PSTNodeInputStream readLeaf(final long bid) throws IOException, PSTException {
+    PSTNodeInputStream readLeaf(final long bid) throws IOException, PSTException {  
         // PSTFileBlock ret = null;
         final PSTNodeInputStream ret = null;
 
