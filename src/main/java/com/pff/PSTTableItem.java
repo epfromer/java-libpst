@@ -110,30 +110,31 @@ class PSTTableItem {
          * else
          * /
          **/
-        {
-            // we are not a normal string, give a hexish sort of output
-            final StringBuffer hexOut = new StringBuffer();
-            for (final byte element : this.data) {
-                final int valueChar = element & 0xff;
-                if (Character.isLetterOrDigit((char) valueChar)) {
-                    outputBuffer.append((char) valueChar);
-                    outputBuffer.append(" ");
-                } else {
-                    outputBuffer.append(". ");
-                }
-                final String hexValue = Long.toHexString(valueChar);
-                hexOut.append(hexValue);
-                hexOut.append(" ");
-                if (hexValue.length() > 1) {
-                    outputBuffer.append(" ");
-                }
-            }
-            outputBuffer.append("\n");
-            outputBuffer.append("	");
-            outputBuffer.append(hexOut);
-        }
+        // {
+        //     // we are not a normal string, give a hexish sort of output
+        //     final StringBuffer hexOut = new StringBuffer();
+        //     for (final byte element : this.data) {
+        //         final int valueChar = element & 0xff;
+        //         if (Character.isLetterOrDigit((char) valueChar)) {
+        //             outputBuffer.append((char) valueChar);
+        //             outputBuffer.append(" ");
+        //         } else {
+        //             outputBuffer.append(". ");
+        //         }
+        //         final String hexValue = Long.toHexString(valueChar);
+        //         hexOut.append(hexValue);
+        //         hexOut.append(" ");
+        //         if (hexValue.length() > 1) {
+        //             outputBuffer.append(" ");
+        //         }
+        //     }
+        //     outputBuffer.append("\n");
+        //     outputBuffer.append("	");
+        //     outputBuffer.append(hexOut);
+        // }
 
-        return new String(outputBuffer);
+        // return new String(outputBuffer);
+        return "hex string";
     }
 
     @Override
