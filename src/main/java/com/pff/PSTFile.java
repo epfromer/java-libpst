@@ -279,13 +279,10 @@ public class PSTFile {
                 } else {
                     guidIndex = uuidIndexes[wGuid - 3];
                 }
-                this.nameToId.put(dwPropertyId | ((long) guidIndex << 32), wPropIdx);
+                long l = dwPropertyId | ((long) guidIndex << 32);
+                this.nameToId.put(l, wPropIdx);
                 idToName.put(wPropIdx, (long) dwPropertyId);
-                /*
-                 * System.out.printf("0x%08X:%04X, 0x%08X\n", dwPropertyId,
-                 * guidIndex, wPropIdx);
-                 * /
-                 **/
+                System.out.printf("numeric key: %d\n", l);
             } else {
                 // else the identifier is a string
                 // dwPropertyId becomes thHke byte offset into the String stream
@@ -298,6 +295,7 @@ public class PSTFile {
                 final String key = new String(keyByteValue, "UTF-16LE");
                 this.stringToId.put(key, wPropIdx);
                 this.idToString.put(wPropIdx, key);
+                System.out.printf("string key: %s\n", key);
             }
         }
     }
