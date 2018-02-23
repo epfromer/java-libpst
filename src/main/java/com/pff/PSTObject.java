@@ -135,8 +135,9 @@ public class PSTObject {
         // descriptorIndexNode.readData(theFile);
         // PSTTableBC table = new PSTTableBC(descriptorIndexNode.dataBlock.data,
         // descriptorIndexNode.dataBlock.blockOffsets);
-        final PSTTableBC table = new PSTTableBC(new PSTNodeInputStream(this.pstFile,
-            this.pstFile.getOffsetIndexNode(descriptorIndexNode.dataOffsetIndexIdentifier)));
+        OffsetIndexItem offsetIndexItem = this.pstFile.getOffsetIndexNode(descriptorIndexNode.dataOffsetIndexIdentifier);
+        PSTNodeInputStream pstNodeInputStream = new PSTNodeInputStream(this.pstFile, offsetIndexItem);
+        final PSTTableBC table = new PSTTableBC(pstNodeInputStream);
         // System.out.println(table);
         this.items = table.getItems();
 
