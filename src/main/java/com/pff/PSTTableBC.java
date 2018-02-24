@@ -177,7 +177,7 @@ class PSTTableBC extends PSTTable {
 
             this.items.put(item.entryType, item);
             // description += item.toString()+"\n\n";
-            System.out.print(item.toString());
+            //System.out.print("debug2 PSTTableBC::constructor " + item.toString());
         }
 
         this.releaseRawData();

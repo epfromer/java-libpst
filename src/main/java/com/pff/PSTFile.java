@@ -282,7 +282,7 @@ public class PSTFile {
                 long l = dwPropertyId | ((long) guidIndex << 32);
                 this.nameToId.put(l, wPropIdx);
                 idToName.put(wPropIdx, (long) dwPropertyId);
-                System.out.printf("numeric key: %d\n", l);
+                //System.out.printf("debug2 PSTFile::processNameToIDMap numeric key: %d\n", l);
             } else {
                 // else the identifier is a string
                 // dwPropertyId becomes thHke byte offset into the String stream
@@ -295,7 +295,7 @@ public class PSTFile {
                 final String key = new String(keyByteValue, "UTF-16LE");
                 this.stringToId.put(key, wPropIdx);
                 this.idToString.put(wPropIdx, key);
-                System.out.printf("string key: %s\n", key);
+                //System.out.printf("debug2 PSTFile::processNameToIDMap string key: %s\n", key);
             }
         }
     }
@@ -625,7 +625,7 @@ public class PSTFile {
             in.seek(btreeStartOffset);
             in.readCompletely(branchNodeItems);
 
-            System.out.printf("btreeStartOffset = %d\n", btreeStartOffset);
+            // System.out.printf("debug2 PSTFile::findBtreeItem btreeStartOffset = %d\n", btreeStartOffset);
 
             long numberOfItems = 0;
             if (this.getPSTFileType() == PST_TYPE_2013_UNICODE) {
@@ -698,6 +698,7 @@ public class PSTFile {
                                 in.seek(btreeStartOffset + (x * 16));
                                 temp = new byte[16];
                                 in.readCompletely(temp);
+                                System.out.printf("debug1: PSTFile::findBtreeItem %d found!\n", index);
                                 return temp;
                             }
                         } else {
@@ -711,6 +712,7 @@ public class PSTFile {
 
                                 temp = new byte[12];
                                 in.readCompletely(temp);
+                                System.out.printf("debug1: PSTFile::findBtreeItem %d found!\n", index);
                                 return temp;
                             }
                         }
@@ -727,7 +729,7 @@ public class PSTFile {
                                 temp = new byte[32];
                                 in.readCompletely(temp);
                                 
-                                System.out.println("item found!!!");
+                                System.out.printf("debug1: PSTFile::findBtreeItem %d found!\n", index);
                                 // PSTObject.printHexFormatted(temp, true);
                                 return temp;
                             }
@@ -744,7 +746,7 @@ public class PSTFile {
                                 temp = new byte[24];
                                 in.readCompletely(temp);
 
-                                System.out.println("item found!!!");
+                                System.out.printf("debug1: PSTFile::findBtreeItem %d found!\n", index);
                                 return temp;
                             }
                         }
