@@ -159,8 +159,6 @@ class PSTTable7C extends PSTTable {
 
         this.description += "Number of keys: " + this.numberOfKeys + "\n" + "Number of columns: " + this.cCols + "\n"
             + "Row Size: " + this.TCI_bm + "\n" + "hidRowIndex: " + hidRowIndex + "\n" + "hnidRows: " + hnidRows + "\n";
-        System.out.printf("%s", this.description);
-
         final int numberOfBlocks = this.rowNodeInfo.length() / this.BLOCK_SIZE;
         final int numberOfRowsPerBlock = this.BLOCK_SIZE / this.TCI_bm;
         @SuppressWarnings("unused")
@@ -414,9 +412,7 @@ class PSTTable7C extends PSTTable {
             dataSetNumber++;
             currentValueArrayStart += this.TCI_bm;
         }
-
-        System.out.println(description);
-
+        System.out.printf("PSTTable7C::getItems number of items = %d\n", itemList.size());
         return itemList;
     }
 
