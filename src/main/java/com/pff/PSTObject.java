@@ -782,7 +782,9 @@ public class PSTObject {
         } else if (messageClass.equals("IPM.Appointment")
             || messageClass.equals("IPM.OLE.CLASS.{00061055-0000-0000-C000-000000000046}")
             || messageClass.startsWith("IPM.Schedule.Meeting")) {
-            return new PSTAppointment(theFile, folderIndexNode, table, localDescriptorItems);
+            PSTAppointment apt = new PSTAppointment(theFile, folderIndexNode, table, localDescriptorItems);
+            System.out.println(apt.getStartTime());
+            return apt;
         } else if (messageClass.equals("IPM.Contact")) {
             return new PSTContact(theFile, folderIndexNode, table, localDescriptorItems);
         } else if (messageClass.equals("IPM.Task")) {
