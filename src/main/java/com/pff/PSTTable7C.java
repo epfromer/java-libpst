@@ -412,7 +412,7 @@ class PSTTable7C extends PSTTable {
             dataSetNumber++;
             currentValueArrayStart += this.TCI_bm;
         }
-        System.out.printf("PSTTable7C::getItems number of items = %d\n", itemList.size());
+        // System.out.printf("PSTTable7C::getItems number of items = %d\n", itemList.size());
         return itemList;
     }
 
