@@ -321,7 +321,6 @@ public class PSTFile {
         return mapDescriptorItem.getData();
     }
 
-    // WORKING
     int getNameToIdMapItem(final int key, final int propertySetIndex) {
         final long lKey = ((long) propertySetIndex << 32) | key;
         final Integer i = this.nameToId.get(lKey);
@@ -403,7 +402,8 @@ public class PSTFile {
 
         if (propertyNames != null) {
             final String key = String.format((bNamed ? "%08X" : "%04X"), propertyId);
-            return propertyNames.getProperty(key);
+            String s = propertyNames.getProperty(key);
+            return s;
         }
 
         return null;

@@ -783,12 +783,16 @@ public class PSTObject {
             || messageClass.equals("IPM.OLE.CLASS.{00061055-0000-0000-C000-000000000046}")
             || messageClass.startsWith("IPM.Schedule.Meeting")) {
             PSTAppointment apt = new PSTAppointment(theFile, folderIndexNode, table, localDescriptorItems);
-            System.out.println(apt.getStartTime());
+            // System.out.println(apt.toString());
             return apt;
         } else if (messageClass.equals("IPM.Contact")) {
-            return new PSTContact(theFile, folderIndexNode, table, localDescriptorItems);
+            PSTContact contact = new PSTContact(theFile, folderIndexNode, table, localDescriptorItems);
+            // System.out.println(contact.toString());
+            return contact;
         } else if (messageClass.equals("IPM.Task")) {
-            return new PSTTask(theFile, folderIndexNode, table, localDescriptorItems);
+            PSTTask task = new PSTTask(theFile, folderIndexNode, table, localDescriptorItems);
+            // System.out.println(task.toString());
+            return task;
         } else if (messageClass.equals("IPM.Activity")) {
             return new PSTActivity(theFile, folderIndexNode, table, localDescriptorItems);
         } else if (messageClass.equals("IPM.Post.Rss")) {

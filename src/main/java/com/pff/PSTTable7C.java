@@ -203,6 +203,10 @@ class PSTTable7C extends PSTTable {
             numberOfRecordsToReturn = this.getRowCount() - startAtRecord;
         }
 
+        // if (numberOfRecordsToReturn == 0) {
+        //     System.out.println("numberOfRecordsToReturn == 0");
+        // }
+
         int dataSetNumber = 0;
         // while ( currentValueArrayStart + ((cCols+7)/8) + TCI_1b <=
         // rowNodeInfo.length())
