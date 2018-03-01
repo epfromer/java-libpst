@@ -9,7 +9,7 @@ import com.pff.PSTMessage;
 
 public class Test {
     public static void main(final String[] args) {
-    	new Test("/home/ed/Desktop/outlook/2016-10.pst");
+    	new Test("/home/ed/Desktop/outlook/2011-04.pst");
         // new Test(args[0]);
     }
 
@@ -17,7 +17,10 @@ public class Test {
         try {
             final PSTFile pstFile = new PSTFile(filename);
             System.out.println(pstFile.getMessageStore().getDisplayName());
+            long start = System.currentTimeMillis();
             this.processFolder(pstFile.getRootFolder());
+            long end = System.currentTimeMillis();
+            System.out.printf("processed in %d ms\n", (end - start));
         } catch (final Exception err) {
             err.printStackTrace();
         }
