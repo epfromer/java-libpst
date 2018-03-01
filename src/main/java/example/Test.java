@@ -9,7 +9,7 @@ import com.pff.PSTMessage;
 
 public class Test {
     public static void main(final String[] args) {
-    	new Test("/home/ed/Desktop/outlook/2005-02.pst");
+    	new Test("/home/ed/Desktop/outlook/2016-10.pst");
         // new Test(args[0]);
     }
 

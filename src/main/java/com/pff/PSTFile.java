@@ -251,7 +251,7 @@ public class PSTFile {
             } else {
                 uuidIndexes[i] = -1; // We don't know this guid
             }
-            System.out.printf("debug1 PSTFile:: processNameToIdMap uuidArray[%d] = {%s},%d\n", i, uuidArray[i].toString(), uuidIndexes[i]);
+            //System.out.printf("debug1 PSTFile:: processNameToIdMap uuidArray[%d] = {%s},%d\n", i, uuidArray[i].toString(), uuidIndexes[i]);
             offset += 16;
         }
 
@@ -282,7 +282,7 @@ public class PSTFile {
                 long l = dwPropertyId | ((long) guidIndex << 32);
                 this.nameToId.put(l, wPropIdx);
                 idToName.put(wPropIdx, (long) dwPropertyId);
-                System.out.printf("debug2 PSTFile::processNameToIDMap numeric key: %d\n", l);
+                //System.out.printf("debug2 PSTFile::processNameToIDMap numeric key: %d\n", l);
             } else {
                 // else the identifier is a string
                 // dwPropertyId becomes thHke byte offset into the String stream

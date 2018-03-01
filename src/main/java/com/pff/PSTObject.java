@@ -768,7 +768,7 @@ public class PSTObject {
 
     static PSTMessage createAppropriatePSTMessageObject(final PSTFile theFile,
         final DescriptorIndexNode folderIndexNode, final PSTTableBC table,
-        final HashMap<Integer, PSTDescriptorItem> localDescriptorItems) {
+        final HashMap<Integer, PSTDescriptorItem> localDescriptorItems) throws PSTException, IOException {
 
         final PSTTableBCItem item = table.getItems().get(0x001a);
         String messageClass = "";
@@ -778,7 +778,12 @@ public class PSTObject {
 
         if (messageClass.equals("IPM.Note")
             || messageClass.equals("IPM.Note.SMIME.MultipartSigned")) {
-            return new PSTMessage(theFile, folderIndexNode, table, localDescriptorItems);
+            PSTMessage msg = new PSTMessage(theFile, folderIndexNode, table, localDescriptorItems);
+            // System.out.println(msg.getBody());
+            // System.out.println(msg.getNumberOfRecipients());
+            // System.out.println(msg.getColorCategories());
+            // System.out.println(msg.toString());
+            return msg;
         } else if (messageClass.equals("IPM.Appointment")
             || messageClass.equals("IPM.OLE.CLASS.{00061055-0000-0000-C000-000000000046}")
             || messageClass.startsWith("IPM.Schedule.Meeting")) {
