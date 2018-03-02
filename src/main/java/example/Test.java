@@ -1,7 +1,10 @@
 package example;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Vector;
 
+import com.pff.PSTAttachment;
 import com.pff.PSTException;
 import com.pff.PSTFile;
 import com.pff.PSTFolder;
@@ -9,7 +12,7 @@ import com.pff.PSTMessage;
 
 public class Test {
     public static void main(final String[] args) {
-    	new Test("/home/ed/Desktop/outlook/2011-04.pst");
+    	new Test("/home/ed/Desktop/outlook/2011-01.pst");
         // new Test(args[0]);
     }
 
@@ -51,6 +54,23 @@ public class Test {
             while (email != null) {
                 this.printDepth();
                 System.out.println("Email: " + email.getDescriptorNodeId() + " - " + email.getSubject());
+                if (email.hasAttachments()) {
+                    System.out.println("has attachments!");
+                    for (int i = 0; i < email.getNumberOfAttachments(); i++) {
+                        PSTAttachment attachment = email.getAttachment(i);
+                        System.out.println(attachment.getDisplayName());
+                        final FileOutputStream out = new FileOutputStream("/home/ed/Desktop/outlook/" + attachment.getDisplayName());
+                        final InputStream attachmentStream = attachment.getFileInputStream();
+                        final int bufferSize = 8176;
+                        final byte[] buffer = new byte[bufferSize];
+                        int count;
+                        do {
+                            count = attachmentStream.read(buffer);
+                            out.write(buffer, 0, count);
+                        } while (count == bufferSize);
+                        out.close();
+                    }
+                }
                 email = (PSTMessage) folder.getNextChild();
             }
             this.depth--;
