@@ -1,5 +1,6 @@
 package example;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Vector;
@@ -12,7 +13,14 @@ import com.pff.PSTMessage;
 
 public class Test {
     public static void main(final String[] args) {
-    	new Test("/home/ed/Desktop/outlook/2016-10.pst");
+        try {
+            File tmpDir = new File("/media/sf_Outlook/0java-libpst/");
+            tmpDir.mkdir();
+        } catch (final Exception err) {
+            err.printStackTrace();
+        }
+
+        new Test("/media/sf_Outlook/done/2005-02.pst");
         // new Test(args[0]);
     }
 
@@ -30,6 +38,7 @@ public class Test {
     }
 
     int depth = -1;
+    int tmpDirIndex = 1;
 
     public void processFolder(final PSTFolder folder) throws PSTException, java.io.IOException {
         this.depth++;
@@ -55,23 +64,32 @@ public class Test {
                 this.printDepth();
                 System.out.println("Email: " + email.getDescriptorNodeId() + " - " + email.getSubject());
                 if (email.hasAttachments()) {
-                    System.out.println("has attachments!");
+                    // make a temp dir for the attachments
+                    File tmpDir = new File("/media/sf_Outlook/0java-libpst/" + tmpDirIndex);
+                    tmpDir.mkdir();
+
+                    // walk list of attachments and save to fs
                     for (int i = 0; i < email.getNumberOfAttachments(); i++) {
                         PSTAttachment attachment = email.getAttachment(i);
-                        System.out.println(attachment.getDisplayName());
-                        String filename = "/home/ed/Desktop/outlook/" + attachment.getDisplayName();
-                        System.out.printf("opening file %s\n", filename);
-                        final FileOutputStream out = new FileOutputStream("/home/ed/Desktop/outlook/" + attachment.getDisplayName());
-                        final InputStream attachmentStream = attachment.getFileInputStream();
-                        final int bufferSize = 8176;
-                        final byte[] buffer = new byte[bufferSize];
-                        int count;
-                        do {
-                            count = attachmentStream.read(buffer);
-                            out.write(buffer, 0, count);
-                        } while (count == bufferSize);
-                        out.close();
+                        String filename = attachment.getFilename();
+
+                        if (filename.trim() != "") {
+                            filename = "/media/sf_Outlook/0java-libpst/" + tmpDirIndex + "/" + filename;
+                            System.out.printf("saving attachment to %s\n", filename);
+
+                            final FileOutputStream out = new FileOutputStream(filename);
+                            final InputStream attachmentStream = attachment.getFileInputStream();
+                            final int bufferSize = 8176;
+                            final byte[] buffer = new byte[bufferSize];
+                            int count;
+                            do {
+                                count = attachmentStream.read(buffer);
+                                out.write(buffer, 0, count);
+                            } while (count == bufferSize);
+                            out.close();
+                        }
                     }
+                    tmpDirIndex++;
                 }
                 email = (PSTMessage) folder.getNextChild();
             }
