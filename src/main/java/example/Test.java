@@ -12,7 +12,7 @@ import com.pff.PSTMessage;
 
 public class Test {
     public static void main(final String[] args) {
-    	new Test("/home/ed/Desktop/outlook/2011-01.pst");
+    	new Test("/home/ed/Desktop/outlook/2016-10.pst");
         // new Test(args[0]);
     }
 
@@ -59,6 +59,8 @@ public class Test {
                     for (int i = 0; i < email.getNumberOfAttachments(); i++) {
                         PSTAttachment attachment = email.getAttachment(i);
                         System.out.println(attachment.getDisplayName());
+                        String filename = "/home/ed/Desktop/outlook/" + attachment.getDisplayName();
+                        System.out.printf("opening file %s\n", filename);
                         final FileOutputStream out = new FileOutputStream("/home/ed/Desktop/outlook/" + attachment.getDisplayName());
                         final InputStream attachmentStream = attachment.getFileInputStream();
                         final int bufferSize = 8176;
