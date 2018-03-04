@@ -74,7 +74,7 @@ public class Test {
         if (folder.getContentCount() > 0) {
             this.depth++;
             PSTMessage email = (PSTMessage) folder.getNextChild();
-            while (email != null && false) {
+            while (email != null) {
                 if (verbose) {
                     this.printDepth();
                     System.out.println("Email: " + email.getDescriptorNodeId() + " - " + email.getSubject());
