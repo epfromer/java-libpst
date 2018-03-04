@@ -3,6 +3,7 @@ package example;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Vector;
 
 import com.pff.PSTAttachment;
@@ -12,16 +13,29 @@ import com.pff.PSTFolder;
 import com.pff.PSTMessage;
 
 public class Test {
+
+    static boolean saveAttachmentsToFS = false;
+    static boolean verbose = false;
+
     public static void main(final String[] args) {
         try {
-            File tmpDir = new File("/media/sf_Outlook/0java-libpst/");
-            tmpDir.mkdir();
+            if (saveAttachmentsToFS) {
+                File tmpDir = new File("/media/sf_Outlook/0java-libpst/");
+                tmpDir.mkdir();
+            }
+
+            File dir = new File("/media/sf_Outlook/test");
+            File[] directoryListing = dir.listFiles();
+            Arrays.sort(directoryListing);
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    System.out.println(child.getPath());
+                    new Test(child.getPath());
+                }
+            }
         } catch (final Exception err) {
             err.printStackTrace();
         }
-
-        new Test("/media/sf_Outlook/done/2005-02.pst");
-        // new Test(args[0]);
     }
 
     public Test(final String filename) {
@@ -60,10 +74,14 @@ public class Test {
         if (folder.getContentCount() > 0) {
             this.depth++;
             PSTMessage email = (PSTMessage) folder.getNextChild();
-            while (email != null) {
-                this.printDepth();
-                System.out.println("Email: " + email.getDescriptorNodeId() + " - " + email.getSubject());
-                if (email.hasAttachments()) {
+            while (email != null && false) {
+                if (verbose) {
+                    this.printDepth();
+                    System.out.println("Email: " + email.getDescriptorNodeId() + " - " + email.getSubject());
+                } else {
+                    this.printDot();
+                }
+                if (email.hasAttachments() && saveAttachmentsToFS) {
                     // make a temp dir for the attachments
                     File tmpDir = new File("/media/sf_Outlook/0java-libpst/" + tmpDirIndex);
                     tmpDir.mkdir();
@@ -75,7 +93,9 @@ public class Test {
 
                         if (filename.trim().length() > 0) {
                             filename = "/media/sf_Outlook/0java-libpst/" + tmpDirIndex + "/" + filename;
-                            System.out.printf("saving attachment to %s\n", filename);
+                            if (verbose) {
+                                System.out.printf("saving attachment to %s\n", filename);
+                            }
 
                             final FileOutputStream out = new FileOutputStream(filename);
                             final InputStream attachmentStream = attachment.getFileInputStream();
@@ -98,7 +118,21 @@ public class Test {
         this.depth--;
     }
 
+    int col = 0;
+    private void printDot() {
+        System.out.print(".");
+        if (col++ > 100) {
+            System.out.println("");
+            col = 0;
+        }
+    }
+
+
     public void printDepth() {
+        if (col > 0) {
+            col = 0;
+            System.out.println("");
+        }
         for (int x = 0; x < this.depth - 1; x++) {
             System.out.print(" | ");
         }
