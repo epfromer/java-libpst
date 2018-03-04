@@ -73,7 +73,7 @@ public class Test {
                         PSTAttachment attachment = email.getAttachment(i);
                         String filename = attachment.getFilename();
 
-                        if (filename.trim() != "") {
+                        if (filename.trim().length() > 0) {
                             filename = "/media/sf_Outlook/0java-libpst/" + tmpDirIndex + "/" + filename;
                             System.out.printf("saving attachment to %s\n", filename);
 
