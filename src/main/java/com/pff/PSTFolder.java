@@ -293,14 +293,20 @@ public class PSTFolder extends PSTObject {
         this.initEmailsTable();
 
         if (this.emailsTable != null) {
-            final List<HashMap<Integer, PSTTable7CItem>> rows = this.emailsTable.getItems(this.currentEmailIndex, 1);
-
             if (this.currentEmailIndex == this.getContentCount()) {
                 // no more!
                 return null;
             }
+
+            final List<HashMap<Integer, PSTTable7CItem>> rows = this.emailsTable.getItems(this.currentEmailIndex, 1);
+
             // get the emails from the rows
             final PSTTable7CItem emailRow = rows.get(0).get(0x67F2);
+            if (emailRow.itemIndex == -1) {
+                // no more!
+                return null;
+            }
+
             final DescriptorIndexNode childDescriptor = this.pstFile
                 .getDescriptorIndexNode(emailRow.entryValueReference);
             final PSTObject child = PSTObject.detectAndLoadPSTObject(this.pstFile, childDescriptor);

@@ -15,7 +15,7 @@ import com.pff.PSTMessage;
 public class Test {
 
     static boolean saveAttachmentsToFS = false;
-    static boolean verbose = false;
+    static boolean verbose = true;
 
     public static void main(final String[] args) {
         try {
